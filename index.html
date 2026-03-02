@@ -3,917 +3,586 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>六福 vs 競品｜A4橫向比較圖（約售價版本）</title>
+  <title>本號 vs 競品｜A4橫向比較圖（約售價）</title>
   <style>
-    :root{
-      --bd:#e5e7eb; --txt:#111827; --muted:#6b7280; --bg:#f6f7fb;
-      --card:#ffffff; --accent:#111827;
-      --ok:#065f46; --bad:#b91c1c;
-    }
-    *{ box-sizing:border-box; }
-    body{
-      margin:0; background:var(--bg); color:var(--txt);
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang HK","Microsoft JhengHei",Arial,sans-serif;
-    }
-    .topbar{
-      position: sticky; top:0; z-index:50;
-      background:#fff; border-bottom:1px solid var(--bd);
-      padding:10px 14px;
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-    }
-    .topbar .title{ font-weight:800; }
-    .topbar .hint{ color:var(--muted); font-size:12px; }
-    .topbar .spacer{ flex:1; }
-    button{
-      border:1px solid var(--bd); background:#fff; color:var(--txt);
-      padding:10px 12px; border-radius:12px; cursor:pointer; font-size:14px;
-    }
-    button.primary{ background:var(--accent); color:#fff; border-color:var(--accent); }
-    button:active{ transform: translateY(1px); }
-    input, select, textarea{
-      width:100%; padding:8px 9px; border:1px solid var(--bd);
-      border-radius:10px; font-size:12px; background:#fff;
-    }
-    textarea{ resize:none; height: 34px; }
-    .wrap{ padding:14px; display:flex; justify-content:center; }
-    .panel{
-      width:min(1100px, 100%);
-      display:grid; grid-template-columns: 1fr; gap:12px;
-    }
-    .controls{
-      background:#fff; border:1px solid var(--bd); border-radius:14px;
-      padding:12px;
-      display:grid; gap:10px;
-    }
-    .controls .grid{
-      display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap:10px;
-    }
-    @media (max-width: 900px){
-      .controls .grid{ grid-template-columns:1fr; }
-    }
-    .label{ font-size:12px; color:var(--muted); margin-bottom:6px; }
-    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    @media (max-width: 900px){ .row2{ grid-template-columns:1fr; } }
+    :root{--bd:#e5e7eb;--txt:#111827;--mut:#6b7280;--bg:#f6f7fb;--ok:#065f46;--bad:#b91c1c;}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang HK","Microsoft JhengHei",Arial,sans-serif}
+    .bar{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid var(--bd);padding:10px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .bar b{font-weight:900}
+    .bar .mut{color:var(--mut);font-size:12px}
+    .bar .sp{flex:1}
+    button{border:1px solid var(--bd);background:#fff;color:var(--txt);padding:10px 12px;border-radius:12px;cursor:pointer;font-size:14px}
+    button.primary{background:#111827;color:#fff;border-color:#111827}
+    button:active{transform:translateY(1px)}
+    input,select{width:100%;padding:8px 9px;border:1px solid var(--bd);border-radius:10px;font-size:12px;background:#fff}
+    .wrap{padding:14px;display:flex;justify-content:center}
+    .panel{width:min(1100px,100%);display:grid;gap:12px}
+    .card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:12px;display:grid;gap:10px}
+    .grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:10px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+    .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width:900px){.row2{grid-template-columns:1fr}}
+    .lab{font-size:12px;color:var(--mut);margin-bottom:6px}
 
-    /* ===== A4 LANDSCAPE REPORT ===== */
-    .report-shell{
-      display:flex; justify-content:center;
-    }
-    .report{
-      width: 297mm;
-      height: 210mm;
-      background: #fff;
-      border: 1px solid var(--bd);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,.06);
-      position: relative;
-    }
-    .report-inner{
-      padding: 10mm;
-      height: 100%;
-      display:flex;
-      flex-direction:column;
-      gap: 5mm;
-    }
-    .r-header{
-      display:flex; align-items:flex-end; justify-content:space-between; gap: 8mm;
-      border-bottom: 1px solid var(--bd);
-      padding-bottom: 3mm;
-    }
-    .r-header .h-left .h1{
-      font-size: 16pt; font-weight: 800; letter-spacing: .2px;
-      margin:0;
-    }
-    .r-header .h-left .h2{
-      margin-top: 2mm;
-      font-size: 9.5pt; color: var(--muted);
-    }
-    .r-header .h-right{
-      text-align:right;
-      font-size: 9.5pt;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-    .pill{
-      display:inline-block; padding: 2mm 3mm;
-      border:1px solid var(--bd); border-radius: 999px;
-      font-size: 9pt; color: var(--txt);
-      background:#fff;
-      margin-left: 2mm;
-    }
+    /* Tabs */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+    .tab{padding:8px 10px;border:1px solid var(--bd);border-radius:999px;background:#fff;cursor:pointer;font-size:13px}
+    .tab.on{background:#111827;color:#fff;border-color:#111827}
+    .hide{display:none!important}
 
-    .table{
-      width:100%;
-      border:1px solid var(--bd);
-      border-radius: 10px;
-      overflow:hidden;
-    }
-    .thead{
-      display:grid;
-      grid-template-columns: 1fr 1fr 0.9fr;
-      background: #f3f4f6;
-      border-bottom:1px solid var(--bd);
-    }
-    .th{
-      padding: 2.5mm 3mm;
-      font-weight: 800;
-      font-size: 10pt;
-      display:flex; align-items:center; justify-content:space-between;
-      gap: 3mm;
-    }
-    .th small{ font-weight:600; color:var(--muted); }
-
-    .tbody{ display:flex; flex-direction:column; }
-    .tr{
-      display:grid;
-      grid-template-columns: 1fr 1fr 0.9fr;
-      border-bottom:1px solid var(--bd);
-      min-height: 42mm;
-    }
-    .tr:last-child{ border-bottom:none; }
-
-    .cell{
-      padding: 2.5mm 3mm;
-      display:flex; flex-direction:column; gap: 2mm;
-    }
-    .prod{
-      display:grid;
-      grid-template-columns: 36mm 1fr;
-      gap: 3mm;
-      align-items:start;
-    }
-    .imgbox{
-      width: 36mm; height: 36mm;
-      border: 1px solid var(--bd);
-      border-radius: 10px;
-      background: #fafafa;
-      overflow:hidden;
-      display:flex; align-items:center; justify-content:center;
-    }
-    .imgbox img{
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .meta{
-      display:flex; flex-direction:column; gap: 1.5mm;
-    }
-    .meta .name{
-      font-weight:800; font-size: 10pt;
-      line-height: 1.15;
-    }
-    .meta .sub{
-      font-size: 9pt; color: var(--muted); line-height: 1.2;
-    }
-    .kv{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5mm 3mm;
-      font-size: 9pt;
-    }
-    .kv .k{ color: var(--muted); }
-    .kv .v{ font-weight:700; }
-
-    .diff{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 2mm;
-      height:100%;
-      justify-content:space-between;
-    }
-    .diff .box{
-      border:1px dashed var(--bd);
-      border-radius: 10px;
-      padding: 2mm 2.5mm;
-      background:#fff;
-    }
-    .diff .t{
-      font-size: 9pt; color: var(--muted); margin-bottom: 1.5mm;
-    }
-    .diff .v{
-      font-size: 11pt; font-weight: 900;
-    }
-    .pos{ color: var(--ok); }
-    .neg{ color: var(--bad); }
-    .muted{ color: var(--muted); }
-
-    .r-footer{
-      margin-top:auto;
-      display:flex; justify-content:space-between; gap: 6mm;
-      border-top:1px solid var(--bd);
-      padding-top: 3mm;
-      font-size: 9pt;
-      color: var(--muted);
-      line-height: 1.3;
-    }
-    .r-footer .summary strong{ color: var(--txt); }
-    .r-footer .note{ text-align:right; }
-
-    /* Print: true A4 landscape */
-    @page { size: A4 landscape; margin: 0; }
+    /* A4 report */
+    .report-wrap{display:flex;justify-content:center}
+    .report{width:297mm;height:210mm;background:#fff;border:1px solid var(--bd);border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .r{padding:10mm;height:100%;display:flex;flex-direction:column;gap:5mm}
+    .rh{display:flex;align-items:flex-end;justify-content:space-between;gap:8mm;border-bottom:1px solid var(--bd);padding-bottom:3mm}
+    .h1{font-size:16pt;font-weight:900;margin:0}
+    .h2{margin-top:2mm;font-size:9.5pt;color:var(--mut)}
+    .pill{display:inline-block;padding:2mm 3mm;border:1px solid var(--bd);border-radius:999px;font-size:9pt;margin-left:2mm}
+    .t{width:100%;border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+    .thead{display:grid;grid-template-columns:1fr 1fr .9fr;background:#f3f4f6;border-bottom:1px solid var(--bd)}
+    .th{padding:2.5mm 3mm;font-weight:900;font-size:10pt;display:flex;align-items:center;justify-content:space-between;gap:3mm}
+    .th small{font-weight:600;color:var(--mut)}
+    .tbody{display:flex;flex-direction:column}
+    .tr{display:grid;grid-template-columns:1fr 1fr .9fr;border-bottom:1px solid var(--bd);min-height:42mm}
+    .tr:last-child{border-bottom:none}
+    .cell{padding:2.5mm 3mm;display:flex;flex-direction:column;gap:2mm}
+    .prod{display:grid;grid-template-columns:36mm 1fr;gap:3mm}
+    .img{width:36mm;height:36mm;border:1px solid var(--bd);border-radius:10px;background:#fafafa;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .img img{width:100%;height:100%;object-fit:cover;display:block}
+    .name{font-weight:900;font-size:10pt;line-height:1.15}
+    .sub{font-size:9pt;color:var(--mut);line-height:1.2}
+    .kv{display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 3mm;font-size:9pt}
+    .kv .k{color:var(--mut)}
+    .kv .v{font-weight:800}
+    .diff{display:grid;gap:2mm;height:100%;justify-content:space-between}
+    .box{border:1px dashed var(--bd);border-radius:10px;padding:2mm 2.5mm}
+    .bt{font-size:9pt;color:var(--mut);margin-bottom:1.5mm}
+    .bv{font-size:11pt;font-weight:900}
+    .pos{color:var(--ok)} .neg{color:var(--bad)}
+    .rf{margin-top:auto;display:flex;justify-content:space-between;gap:6mm;border-top:1px solid var(--bd);padding-top:3mm;font-size:9pt;color:var(--mut);line-height:1.3}
+    .rf strong{color:var(--txt)}
+    @page { size:A4 landscape; margin:0; }
     @media print{
-      body{ background:#fff; }
-      .topbar, .controls, .wrap{ display:none !important; }
-      .report{
-        width: 297mm; height: 210mm;
-        border:none; border-radius:0; box-shadow:none;
-      }
-      .report-inner{ padding: 10mm; }
+      body{background:#fff}
+      .bar,.wrap{display:none!important}
+      .report{width:297mm;height:210mm;border:none;border-radius:0;box-shadow:none}
+      .r{padding:10mm}
     }
   </style>
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="title">六福 vs 競品｜A4橫向比較圖（約售價）</div>
-    <div class="hint">輸入：標價 + 金重（両或克）+（折扣% / 滿減 / 直接約售價 擇一）→ 自動算每克約售價與差距 → 匯出PNG</div>
-    <div class="spacer"></div>
-    <button id="btnCalc">更新計算</button>
-    <button id="btnPrint">列印 / 存成PDF</button>
+  <div class="bar">
+    <b id="barTitle">本號 vs 競品｜A4比較圖（約售價）</b>
+    <div class="mut">標價 + 金重（両/克）+（折扣/滿減/直接約售價）→ 每克約售價 & 差距</div>
+    <div class="sp"></div>
+    <div class="tabs">
+      <div class="tab on" id="tabReport">展示頁</div>
+      <div class="tab" id="tabInput">輸入頁</div>
+    </div>
+    <button id="btnCalc">更新</button>
+    <button id="btnPrint">列印/PDF</button>
     <button class="primary" id="btnPng">匯出PNG</button>
   </div>
 
   <div class="wrap">
     <div class="panel">
-      <div class="controls">
-        <div class="grid">
-          <div>
-            <div class="label">報告標題（可改）</div>
-            <input id="reportTitle" value="六福 vs 競品｜貨品價格比較" />
-          </div>
-          <div>
-            <div class="label">日期（可改）</div>
-            <input id="reportDate" />
-          </div>
-          <div>
-            <div class="label">金重換算（1 両 = 克）</div>
-            <input id="taelToG" type="number" step="0.001" value="37.429" />
-          </div>
-          <div>
-            <div class="label">口徑</div>
-            <input value="以 約售價 計 每克約售價（$/g）" disabled />
-          </div>
-        </div>
 
-        <div class="row2">
-          <div>
-            <div class="label">六福欄頭（固定）</div>
-            <input id="ourHeader" value="六福（Lukfook）" />
-          </div>
-          <div>
-            <div class="label">競品欄頭（固定）</div>
-            <input id="compHeader" value="競品（品牌按行顯示）" />
-          </div>
-        </div>
-
-        <div class="row2">
-          <div>
-            <div class="label">匯報備註（右下角）</div>
-            <input id="footerNote" value="＊差距以「每克約售價」作主要比較口徑；如有贈品/會員價，請以實際約售價輸入。" />
-          </div>
-          <div>
-            <div class="label">快速提示</div>
-            <input value="貼相 → 填標價/金重 →（需要就填折扣）→ 匯出PNG發俾上司" disabled />
-          </div>
-        </div>
-      </div>
-
-      <!-- REPORT (A4 landscape) -->
-      <div class="report-shell">
-        <div class="report" id="report">
-          <div class="report-inner">
-            <div class="r-header">
-              <div class="h-left">
-                <div class="h1" id="rTitle">六福 vs 競品｜貨品價格比較</div>
-                <div class="h2">
-                  日期：<span id="rDate"></span>
-                  <span class="pill">A4 橫向</span>
-                  <span class="pill">口徑：按 約售價 / g</span>
-                </div>
-              </div>
-              <div class="h-right">
-                <div>六福欄：<span id="rOurHeader" class="pill">六福（Lukfook）</span></div>
-                <div>競品欄：<span id="rCompHeader" class="pill">競品（品牌按行顯示）</span></div>
-              </div>
-            </div>
-
-            <div class="table">
-              <div class="thead">
-                <div class="th"><span id="thOur">六福（Lukfook）</span><small>圖片｜金重｜標價｜約售價｜每克約售價</small></div>
-                <div class="th"><span id="thComp">競品（品牌按行顯示）</span><small>圖片｜金重｜標價｜約售價｜每克約售價</small></div>
-                <div class="th"><span>差距</span><small>約售價 & 每克</small></div>
-              </div>
-
-              <div class="tbody">
-                <!-- 3 rows -->
-                <div class="tr" data-row="1">
-                  <div class="cell">
-                    <div class="prod">
-                      <div class="imgbox"><img id="imgOur1" alt="" /></div>
-                      <div class="meta">
-                        <div class="name"><span id="nameOur1">六福｜我方產品 1</span></div>
-                        <div class="sub"><span id="noteOur1" class="muted">（可填模號/款式/備註）</span></div>
-                        <div class="kv">
-                          <div class="k">金重(克/両)</div><div class="v"><span id="wOur1">—</span></div>
-                          <div class="k">標價</div><div class="v"><span id="lpOur1">—</span></div>
-                          <div class="k">約售價</div><div class="v"><span id="fpOur1">—</span></div>
-                          <div class="k">每克約售價</div><div class="v"><span id="pgOur1">—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cell">
-                    <div class="prod">
-                      <div class="imgbox"><img id="imgComp1" alt="" /></div>
-                      <div class="meta">
-                        <div class="name"><span id="nameComp1">競品｜產品 1</span></div>
-                        <div class="sub"><span id="noteComp1" class="muted">（可填品牌/款式/備註）</span></div>
-                        <div class="kv">
-                          <div class="k">金重(克/両)</div><div class="v"><span id="wComp1">—</span></div>
-                          <div class="k">標價</div><div class="v"><span id="lpComp1">—</span></div>
-                          <div class="k">約售價</div><div class="v"><span id="fpComp1">—</span></div>
-                          <div class="k">每克約售價</div><div class="v"><span id="pgComp1">—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cell">
-                    <div class="diff">
-                      <div class="box">
-                        <div class="t">約售價差距（六福-競品）</div>
-                        <div class="v" id="gap1">—</div>
-                        <div class="t muted" id="gapPct1"></div>
-                      </div>
-                      <div class="box">
-                        <div class="t">每克差距（六福-競品）</div>
-                        <div class="v" id="gapPg1">—</div>
-                        <div class="t muted" id="gapPgPct1"></div>
-                      </div>
-                    </div>
+      <!-- ===== 展示頁 ===== -->
+      <div id="pageReport">
+        <div class="report-wrap">
+          <div class="report" id="report">
+            <div class="r">
+              <div class="rh">
+                <div>
+                  <div class="h1" id="rTitle">本號 vs 競品｜貨品價格比較</div>
+                  <div class="h2">
+                    日期：<span id="rDate"></span>
+                    <span class="pill">A4 橫向</span>
+                    <span class="pill">口徑：約售價 / g</span>
                   </div>
                 </div>
-
-                <div class="tr" data-row="2">
-                  <div class="cell">
-                    <div class="prod">
-                      <div class="imgbox"><img id="imgOur2" alt="" /></div>
-                      <div class="meta">
-                        <div class="name"><span id="nameOur2">六福｜我方產品 2</span></div>
-                        <div class="sub"><span id="noteOur2" class="muted">（可填模號/款式/備註）</span></div>
-                        <div class="kv">
-                          <div class="k">金重(克/両)</div><div class="v"><span id="wOur2">—</span></div>
-                          <div class="k">標價</div><div class="v"><span id="lpOur2">—</span></div>
-                          <div class="k">約售價</div><div class="v"><span id="fpOur2">—</span></div>
-                          <div class="k">每克約售價</div><div class="v"><span id="pgOur2">—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cell">
-                    <div class="prod">
-                      <div class="imgbox"><img id="imgComp2" alt="" /></div>
-                      <div class="meta">
-                        <div class="name"><span id="nameComp2">競品｜產品 2</span></div>
-                        <div class="sub"><span id="noteComp2" class="muted">（可填品牌/款式/備註）</span></div>
-                        <div class="kv">
-                          <div class="k">金重(克/両)</div><div class="v"><span id="wComp2">—</span></div>
-                          <div class="k">標價</div><div class="v"><span id="lpComp2">—</span></div>
-                          <div class="k">約售價</div><div class="v"><span id="fpComp2">—</span></div>
-                          <div class="k">每克約售價</div><div class="v"><span id="pgComp2">—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cell">
-                    <div class="diff">
-                      <div class="box">
-                        <div class="t">約售價差距（六福-競品）</div>
-                        <div class="v" id="gap2">—</div>
-                        <div class="t muted" id="gapPct2"></div>
-                      </div>
-                      <div class="box">
-                        <div class="t">每克差距（六福-競品）</div>
-                        <div class="v" id="gapPg2">—</div>
-                        <div class="t muted" id="gapPgPct2"></div>
-                      </div>
-                    </div>
-                  </div>
+                <div style="text-align:right;font-size:9.5pt;color:var(--mut);line-height:1.35">
+                  <div>本號：<span class="pill" id="rOurHead">本號</span></div>
+                  <div>競品：<span class="pill" id="rCompHead">競品（品牌按行顯示）</span></div>
                 </div>
+              </div>
 
-                <div class="tr" data-row="3">
-                  <div class="cell">
-                    <div class="prod">
-                      <div class="imgbox"><img id="imgOur3" alt="" /></div>
-                      <div class="meta">
-                        <div class="name"><span id="nameOur3">六福｜我方產品 3</span></div>
-                        <div class="sub"><span id="noteOur3" class="muted">（可填模號/款式/備註）</span></div>
-                        <div class="kv">
-                          <div class="k">金重(克/両)</div><div class="v"><span id="wOur3">—</span></div>
-                          <div class="k">標價</div><div class="v"><span id="lpOur3">—</span></div>
-                          <div class="k">約售價</div><div class="v"><span id="fpOur3">—</span></div>
-                          <div class="k">每克約售價</div><div class="v"><span id="pgOur3">—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cell">
-                    <div class="prod">
-                      <div class="imgbox"><img id="imgComp3" alt="" /></div>
-                      <div class="meta">
-                        <div class="name"><span id="nameComp3">競品｜產品 3</span></div>
-                        <div class="sub"><span id="noteComp3" class="muted">（可填品牌/款式/備註）</span></div>
-                        <div class="kv">
-                          <div class="k">金重(克/両)</div><div class="v"><span id="wComp3">—</span></div>
-                          <div class="k">標價</div><div class="v"><span id="lpComp3">—</span></div>
-                          <div class="k">約售價</div><div class="v"><span id="fpComp3">—</span></div>
-                          <div class="k">每克約售價</div><div class="v"><span id="pgComp3">—</span></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="cell">
-                    <div class="diff">
-                      <div class="box">
-                        <div class="t">約售價差距（六福-競品）</div>
-                        <div class="v" id="gap3">—</div>
-                        <div class="t muted" id="gapPct3"></div>
-                      </div>
-                      <div class="box">
-                        <div class="t">每克差距（六福-競品）</div>
-                        <div class="v" id="gapPg3">—</div>
-                        <div class="t muted" id="gapPgPct3"></div>
-                      </div>
-                    </div>
-                  </div>
+              <div class="t">
+                <div class="thead">
+                  <div class="th"><span id="thOur">本號</span><small>圖片｜金重｜標價｜約售價｜每克</small></div>
+                  <div class="th"><span id="thComp">競品</span><small>圖片｜金重｜標價｜約售價｜每克</small></div>
+                  <div class="th"><span>差距</span><small>約售價 & 每克</small></div>
                 </div>
+                <div class="tbody">
+                  <!-- 3 rows -->
+                  <div class="tr" data-row="1">
+                    <div class="cell">
+                      <div class="prod">
+                        <div class="img"><img id="imgOur1" alt="" style="display:none" /></div>
+                        <div>
+                          <div class="name" id="nameOur1">本號｜產品 1</div>
+                          <div class="sub" id="noteOur1">（可填模號/款式/備註）</div>
+                          <div class="kv">
+                            <div class="k">金重</div><div class="v" id="wOur1">—</div>
+                            <div class="k">標價</div><div class="v" id="lpOur1">—</div>
+                            <div class="k">約售價</div><div class="v" id="fpOur1">—</div>
+                            <div class="k">每克</div><div class="v" id="pgOur1">—</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-              </div>
-            </div>
+                    <div class="cell">
+                      <div class="prod">
+                        <div class="img"><img id="imgComp1" alt="" style="display:none" /></div>
+                        <div>
+                          <div class="name" id="nameComp1">競品｜產品 1</div>
+                          <div class="sub" id="noteComp1">（可填品牌/款式/備註）</div>
+                          <div class="kv">
+                            <div class="k">金重</div><div class="v" id="wComp1">—</div>
+                            <div class="k">標價</div><div class="v" id="lpComp1">—</div>
+                            <div class="k">約售價</div><div class="v" id="fpComp1">—</div>
+                            <div class="k">每克</div><div class="v" id="pgComp1">—</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-            <div class="r-footer">
-              <div class="summary" id="rSummary">
-                <strong>快速結論：</strong>—（輸入數據後自動生成）
+                    <div class="cell">
+                      <div class="diff">
+                        <div class="box">
+                          <div class="bt">約售價差距（本號-競品）</div>
+                          <div class="bv" id="gap1">—</div>
+                          <div class="bt" id="gapPct1"></div>
+                        </div>
+                        <div class="box">
+                          <div class="bt">每克差距（本號-競品）</div>
+                          <div class="bv" id="gapPg1">—</div>
+                          <div class="bt" id="gapPgPct1"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tr" data-row="2">
+                    <div class="cell">
+                      <div class="prod">
+                        <div class="img"><img id="imgOur2" alt="" style="display:none" /></div>
+                        <div>
+                          <div class="name" id="nameOur2">本號｜產品 2</div>
+                          <div class="sub" id="noteOur2">（可填模號/款式/備註）</div>
+                          <div class="kv">
+                            <div class="k">金重</div><div class="v" id="wOur2">—</div>
+                            <div class="k">標價</div><div class="v" id="lpOur2">—</div>
+                            <div class="k">約售價</div><div class="v" id="fpOur2">—</div>
+                            <div class="k">每克</div><div class="v" id="pgOur2">—</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cell">
+                      <div class="prod">
+                        <div class="img"><img id="imgComp2" alt="" style="display:none" /></div>
+                        <div>
+                          <div class="name" id="nameComp2">競品｜產品 2</div>
+                          <div class="sub" id="noteComp2">（可填品牌/款式/備註）</div>
+                          <div class="kv">
+                            <div class="k">金重</div><div class="v" id="wComp2">—</div>
+                            <div class="k">標價</div><div class="v" id="lpComp2">—</div>
+                            <div class="k">約售價</div><div class="v" id="fpComp2">—</div>
+                            <div class="k">每克</div><div class="v" id="pgComp2">—</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cell">
+                      <div class="diff">
+                        <div class="box">
+                          <div class="bt">約售價差距（本號-競品）</div>
+                          <div class="bv" id="gap2">—</div>
+                          <div class="bt" id="gapPct2"></div>
+                        </div>
+                        <div class="box">
+                          <div class="bt">每克差距（本號-競品）</div>
+                          <div class="bv" id="gapPg2">—</div>
+                          <div class="bt" id="gapPgPct2"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tr" data-row="3">
+                    <div class="cell">
+                      <div class="prod">
+                        <div class="img"><img id="imgOur3" alt="" style="display:none" /></div>
+                        <div>
+                          <div class="name" id="nameOur3">本號｜產品 3</div>
+                          <div class="sub" id="noteOur3">（可填模號/款式/備註）</div>
+                          <div class="kv">
+                            <div class="k">金重</div><div class="v" id="wOur3">—</div>
+                            <div class="k">標價</div><div class="v" id="lpOur3">—</div>
+                            <div class="k">約售價</div><div class="v" id="fpOur3">—</div>
+                            <div class="k">每克</div><div class="v" id="pgOur3">—</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cell">
+                      <div class="prod">
+                        <div class="img"><img id="imgComp3" alt="" style="display:none" /></div>
+                        <div>
+                          <div class="name" id="nameComp3">競品｜產品 3</div>
+                          <div class="sub" id="noteComp3">（可填品牌/款式/備註）</div>
+                          <div class="kv">
+                            <div class="k">金重</div><div class="v" id="wComp3">—</div>
+                            <div class="k">標價</div><div class="v" id="lpComp3">—</div>
+                            <div class="k">約售價</div><div class="v" id="fpComp3">—</div>
+                            <div class="k">每克</div><div class="v" id="pgComp3">—</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="cell">
+                      <div class="diff">
+                        <div class="box">
+                          <div class="bt">約售價差距（本號-競品）</div>
+                          <div class="bv" id="gap3">—</div>
+                          <div class="bt" id="gapPct3"></div>
+                        </div>
+                        <div class="box">
+                          <div class="bt">每克差距（本號-競品）</div>
+                          <div class="bv" id="gapPg3">—</div>
+                          <div class="bt" id="gapPgPct3"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
-              <div class="note" id="rNote">＊差距以「每克約售價」作主要比較口徑；如有贈品/會員價，請以實際約售價輸入。</div>
+
+              <div class="rf">
+                <div id="rSummary"><strong>快速結論：</strong>—</div>
+                <div id="rNote">＊差距以「每克約售價」作主要口徑；如有會員/贈品，請以實際約售價輸入。</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- INPUT AREA for 3 rows -->
-      <div class="controls" id="inputs">
-        <div style="font-weight:800;">輸入區（3 行對比｜每行左六福、右競品可不同品牌）</div>
-        <div class="hint" style="color:var(--muted); font-size:12px;">
-          金重：両 或 克 二擇一；價格：標價必填；折扣選一種填（折扣 / 滿減 / 直接約售價）。
+      <!-- ===== 輸入頁 ===== -->
+      <div id="pageInput" class="hide">
+        <div class="card">
+          <div class="grid">
+            <div>
+              <div class="lab">報告標題</div>
+              <input id="reportTitle" value="本號 vs 競品｜貨品價格比較" />
+            </div>
+            <div>
+              <div class="lab">日期</div>
+              <input id="reportDate" />
+            </div>
+            <div>
+              <div class="lab">1 両 = 幾克</div>
+              <input id="taelToG" type="number" step="0.001" value="37.429" />
+            </div>
+            <div>
+              <div class="lab">備註（右下角）</div>
+              <input id="footerNote" value="＊差距以「每克約售價」作主要口徑；如有會員/贈品，請以實際約售價輸入。" />
+            </div>
+          </div>
+          <div class="row2">
+            <div>
+              <div class="lab">本號欄頭</div>
+              <input id="ourHeader" value="本號" />
+            </div>
+            <div>
+              <div class="lab">競品欄頭</div>
+              <input id="compHeader" value="競品（品牌按行顯示）" />
+            </div>
+          </div>
         </div>
 
-        <div id="rows"></div>
+        <div class="card">
+          <div style="font-weight:900">輸入區（3 行對比）</div>
+          <div class="mut">金重：両 或 克 二擇一；價格：標價必填；折扣三選一（折扣 / 滿減 / 直接約售價）。</div>
+          <div id="rows"></div>
+        </div>
       </div>
 
     </div>
   </div>
 
 <script>
-  const $ = (id) => document.getElementById(id);
+  const $ = (id)=>document.getElementById(id);
+  const isNum = (x)=>Number.isFinite(x);
+  const num = (v)=>{ const x=Number(v); return Number.isFinite(x)?x:NaN; };
+  const money = (x,dp=0)=>{
+    if(!isNum(x)) return "—";
+    const s = x<0?"-":"";
+    const a = Math.abs(x);
+    return s+"$"+a.toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp});
+  };
+  const pct = (x)=>isNum(x)?(x*100).toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1})+"%":"";
+  const n2 = (x,dp)=>isNum(x)?x.toLocaleString("en-US",{minimumFractionDigits:dp,maximumFractionDigits:dp}):"—";
+  const clip = (s,m=70)=>s&&s.length>m?(s.slice(0,m-1)+"…"):s;
 
-  // ===== Utils =====
-  const isNum = (x) => Number.isFinite(x);
-  const n = (v) => {
-    const x = Number(v);
-    return Number.isFinite(x) ? x : NaN;
-  };
-  const fmtMoney = (x) => {
-    if(!isNum(x)) return "—";
-    const sign = x < 0 ? "-" : "";
-    const abs = Math.abs(x);
-    return sign + "$" + abs.toLocaleString("en-US", { maximumFractionDigits: 0 });
-  };
-  const fmtMoney1 = (x) => {
-    if(!isNum(x)) return "—";
-    const sign = x < 0 ? "-" : "";
-    const abs = Math.abs(x);
-    return sign + "$" + abs.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  };
-  const fmtNum = (x, dp=2) => {
-    if(!isNum(x)) return "—";
-    return x.toLocaleString("en-US", { minimumFractionDigits: dp, maximumFractionDigits: dp });
-  };
-  const fmtPct = (x) => {
-    if(!isNum(x)) return "";
-    return (x*100).toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "%";
-  };
-  const clampStr = (s, max=60) => (s && s.length>max) ? (s.slice(0,max-1)+"…") : s;
-
-  // ===== Build input rows (3) =====
-  const defaultBrands = ["周大福", "周生生", "老鋪黃金", "六福", "其他"];
-  function brandSelect(id){
-    const opts = defaultBrands.map(b=>`<option value="${b}">${b}</option>`).join("");
-    return `
-      <select id="${id}">
-        <option value="">（選擇品牌）</option>
-        ${opts}
-      </select>
-    `;
+  // tabs
+  function show(page){
+    $("pageReport").classList.toggle("hide", page!=="report");
+    $("pageInput").classList.toggle("hide", page!=="input");
+    $("tabReport").classList.toggle("on", page==="report");
+    $("tabInput").classList.toggle("on", page==="input");
   }
+  $("tabReport").onclick=()=>show("report");
+  $("tabInput").onclick=()=>show("input");
 
-  function rowHTML(i){
+  // build rows
+  const brands=["周大福","周生生","老鋪黃金","六福","其他"];
+  const brandSel=(id)=>`<select id="${id}"><option value="">（選擇品牌）</option>${brands.map(b=>`<option>${b}</option>`).join("")}</select>`;
+  function row(i){
     return `
-      <div style="border:1px solid var(--bd); border-radius:14px; padding:12px; background:#fff;">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
-          <div style="font-weight:900;">第 ${i} 行</div>
-          <div style="color:var(--muted); font-size:12px;">建議：先填右邊競品，再填左邊六福對應款</div>
-        </div>
-
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:10px;">
-          <!-- Our -->
-          <div style="border:1px dashed var(--bd); border-radius:12px; padding:10px;">
-            <div style="font-weight:800; margin-bottom:8px;">六福（我方）</div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-              <div>
-                <div class="label">產品名稱/模號</div>
-                <input id="our_name_${i}" placeholder="例如：模號 / 款式（可留空）" />
-              </div>
-              <div>
-                <div class="label">備註（材質/鑲石/鏈長）</div>
-                <input id="our_note_${i}" placeholder="例如：Au999 / 鎖匙 / 鑲石" />
-              </div>
-
-              <div>
-                <div class="label">圖片（上傳）</div>
-                <input id="our_img_${i}" type="file" accept="image/*" />
-              </div>
-              <div>
-                <div class="label">標價 ($)</div>
-                <input id="our_list_${i}" type="number" step="1" placeholder="必填" />
-              </div>
-
-              <div>
-                <div class="label">金重（両）</div>
-                <input id="our_tael_${i}" type="number" step="0.001" placeholder="両 或 克 二擇一" />
-              </div>
-              <div>
-                <div class="label">金重（克）</div>
-                <input id="our_g_${i}" type="number" step="0.01" placeholder="両 或 克 二擇一" />
-              </div>
-
-              <div>
-                <div class="label">折扣（例如：8折=0.8）</div>
-                <input id="our_disc_${i}" type="number" step="0.01" placeholder="三選一：折扣/滿減/約售價" />
-              </div>
-              <div>
-                <div class="label">滿減（例如：減$1000）</div>
-                <input id="our_minus_${i}" type="number" step="1" placeholder="三選一：折扣/滿減/約售價" />
-              </div>
-
-              <div style="grid-column:1/-1;">
-                <div class="label">直接輸入約售價（最優先）</div>
-                <input id="our_final_${i}" type="number" step="1" placeholder="如你已知實際成交/會員價，直接填呢格" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Competitor -->
-          <div style="border:1px dashed var(--bd); border-radius:12px; padding:10px;">
-            <div style="font-weight:800; margin-bottom:8px;">競品（可每行不同品牌）</div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-              <div>
-                <div class="label">競品品牌（下拉）</div>
-                ${brandSelect(`comp_brand_${i}`)}
-              </div>
-              <div>
-                <div class="label">或自訂品牌（覆蓋下拉）</div>
-                <input id="comp_brand_free_${i}" placeholder="例如：CHOW TAI FOOK" />
-              </div>
-
-              <div>
-                <div class="label">產品備註（款式/材質）</div>
-                <input id="comp_note_${i}" placeholder="例如：Au999 / 鎖匙 / 鑲石" />
-              </div>
-              <div>
-                <div class="label">圖片（上傳）</div>
-                <input id="comp_img_${i}" type="file" accept="image/*" />
-              </div>
-
-              <div>
-                <div class="label">標價 ($)</div>
-                <input id="comp_list_${i}" type="number" step="1" placeholder="必填" />
-              </div>
-              <div>
-                <div class="label">金重（両）</div>
-                <input id="comp_tael_${i}" type="number" step="0.001" placeholder="両 或 克 二擇一" />
-              </div>
-
-              <div>
-                <div class="label">金重（克）</div>
-                <input id="comp_g_${i}" type="number" step="0.01" placeholder="両 或 克 二擇一" />
-              </div>
-              <div>
-                <div class="label">折扣（例如：8折=0.8）</div>
-                <input id="comp_disc_${i}" type="number" step="0.01" placeholder="三選一：折扣/滿減/約售價" />
-              </div>
-
-              <div>
-                <div class="label">滿減（例如：減$1000）</div>
-                <input id="comp_minus_${i}" type="number" step="1" placeholder="三選一：折扣/滿減/約售價" />
-              </div>
-              <div>
-                <div class="label">直接輸入約售價（最優先）</div>
-                <input id="comp_final_${i}" type="number" step="1" placeholder="如你已知實際售價，直接填" />
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <div style="border:1px solid var(--bd);border-radius:14px;padding:12px;background:#fff">
+      <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+        <div style="font-weight:900">第 ${i} 行</div>
+        <div class="mut">右：競品；左：本號對應款</div>
       </div>
-    `;
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px">
+        <div style="border:1px dashed var(--bd);border-radius:12px;padding:10px">
+          <div style="font-weight:800;margin-bottom:8px">本號</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div><div class="lab">產品名稱/模號</div><input id="our_name_${i}" /></div>
+            <div><div class="lab">備註</div><input id="our_note_${i}" /></div>
+            <div><div class="lab">圖片</div><input id="our_img_${i}" type="file" accept="image/*" /></div>
+            <div><div class="lab">標價 ($)</div><input id="our_list_${i}" type="number" step="1" /></div>
+            <div><div class="lab">金重（両）</div><input id="our_tael_${i}" type="number" step="0.001" /></div>
+            <div><div class="lab">金重（克）</div><input id="our_g_${i}" type="number" step="0.01" /></div>
+            <div><div class="lab">折扣（8折=0.8）</div><input id="our_disc_${i}" type="number" step="0.01" /></div>
+            <div><div class="lab">滿減（減$）</div><input id="our_minus_${i}" type="number" step="1" /></div>
+            <div style="grid-column:1/-1"><div class="lab">直接約售價（最優先）</div><input id="our_final_${i}" type="number" step="1" /></div>
+          </div>
+        </div>
+
+        <div style="border:1px dashed var(--bd);border-radius:12px;padding:10px">
+          <div style="font-weight:800;margin-bottom:8px">競品</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div><div class="lab">品牌（下拉）</div>${brandSel(`comp_brand_${i}`)}</div>
+            <div><div class="lab">自訂品牌（覆蓋）</div><input id="comp_brand_free_${i}" /></div>
+            <div><div class="lab">備註</div><input id="comp_note_${i}" /></div>
+            <div><div class="lab">圖片</div><input id="comp_img_${i}" type="file" accept="image/*" /></div>
+            <div><div class="lab">標價 ($)</div><input id="comp_list_${i}" type="number" step="1" /></div>
+            <div><div class="lab">金重（両）</div><input id="comp_tael_${i}" type="number" step="0.001" /></div>
+            <div><div class="lab">金重（克）</div><input id="comp_g_${i}" type="number" step="0.01" /></div>
+            <div><div class="lab">折扣（8折=0.8）</div><input id="comp_disc_${i}" type="number" step="0.01" /></div>
+            <div><div class="lab">滿減（減$）</div><input id="comp_minus_${i}" type="number" step="1" /></div>
+            <div><div class="lab">直接約售價（最優先）</div><input id="comp_final_${i}" type="number" step="1" /></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
   }
+  $("rows").innerHTML=[1,2,3].map(row).join("");
 
-  const rowsEl = $("rows");
-  rowsEl.innerHTML = [1,2,3].map(rowHTML).join("");
-
-  // ===== Image upload to report =====
-  function bindImageInput(fileInputId, imgTargetId){
-    const inp = $(fileInputId);
-    const img = $(imgTargetId);
-    img.style.display = "none";
-    inp.addEventListener("change", () => {
-      const f = inp.files && inp.files[0];
+  // images -> report
+  function bindImg(inpId, imgId){
+    const inp=$(inpId), img=$(imgId);
+    inp.addEventListener("change", ()=>{
+      const f=inp.files && inp.files[0];
       if(!f){ img.src=""; img.style.display="none"; return; }
-      const reader = new FileReader();
-      reader.onload = () => { img.src = reader.result; img.style.display="block"; };
-      reader.readAsDataURL(f);
+      const rd=new FileReader();
+      rd.onload=()=>{ img.src=rd.result; img.style.display="block"; };
+      rd.readAsDataURL(f);
     });
   }
   [1,2,3].forEach(i=>{
-    bindImageInput(`our_img_${i}`, `imgOur${i}`);
-    bindImageInput(`comp_img_${i}`, `imgComp${i}`);
+    bindImg(`our_img_${i}`, `imgOur${i}`);
+    bindImg(`comp_img_${i}`, `imgComp${i}`);
   });
 
-  // ===== Header sync =====
-  function setReportHeader(){
-    $("rTitle").textContent = $("reportTitle").value || "六福 vs 競品｜貨品價格比較";
-    $("rDate").textContent = $("reportDate").value || "";
-    $("rOurHeader").textContent = $("ourHeader").value || "六福（Lukfook）";
-    $("rCompHeader").textContent = $("compHeader").value || "競品（品牌按行顯示）";
-    $("thOur").textContent = $("ourHeader").value || "六福（Lukfook）";
-    $("thComp").textContent = $("compHeader").value || "競品（品牌按行顯示）";
+  function syncHeader(){
+    $("rTitle").textContent = $("reportTitle").value || "本號 vs 競品｜貨品價格比較";
+    $("rDate").textContent  = $("reportDate").value || "";
+    $("rOurHead").textContent = $("ourHeader").value || "本號";
+    $("rCompHead").textContent = $("compHeader").value || "競品（品牌按行顯示）";
+    $("thOur").textContent = $("ourHeader").value || "本號";
+    $("thComp").textContent = $("compHeader").value || "競品";
     $("rNote").textContent = $("footerNote").value || "";
+    $("barTitle").textContent = `${$("ourHeader").value||"本號"} vs 競品｜A4比較圖（約售價）`;
   }
 
-  // ===== Core calc per side =====
-  function computeSide(prefix, i, taelToG){
-    const list = n($(`${prefix}_list_${i}`).value);
-    const tael = n($(`${prefix}_tael_${i}`).value);
-    const gIn  = n($(`${prefix}_g_${i}`).value);
+  function calcSide(prefix,i,taelToG){
+    const list=num($(`${prefix}_list_${i}`).value);
+    const tael=num($(`${prefix}_tael_${i}`).value);
+    const gin =num($(`${prefix}_g_${i}`).value);
 
-    // weight: prefer g if provided, else tael * factor
-    let g = NaN;
-    if(isNum(gIn) && gIn > 0) g = gIn;
-    else if(isNum(tael) && tael > 0 && isNum(taelToG)) g = tael * taelToG;
+    let g=NaN;
+    if(isNum(gin) && gin>0) g=gin;
+    else if(isNum(tael) && tael>0 && isNum(taelToG)) g=tael*taelToG;
 
-    const disc = n($(`${prefix}_disc_${i}`).value);
-    const minus = n($(`${prefix}_minus_${i}`).value);
-    const finalDirect = n($(`${prefix}_final_${i}`).value);
+    const disc=num($(`${prefix}_disc_${i}`).value);
+    const minus=num($(`${prefix}_minus_${i}`).value);
+    const fin=num($(`${prefix}_final_${i}`).value);
 
-    // 約售價（Final）：優先用「直接輸入約售價」
-    let finalPrice = NaN;
-    if(isNum(finalDirect) && finalDirect > 0){
-      finalPrice = finalDirect;
-    } else if(isNum(list) && list > 0){
-      if(isNum(disc) && disc > 0) finalPrice = list * disc;
-      else if(isNum(minus) && minus >= 0) finalPrice = list - minus;
-      else finalPrice = list;
+    let final=NaN;
+    if(isNum(fin) && fin>0) final=fin;
+    else if(isNum(list) && list>0){
+      if(isNum(disc) && disc>0) final=list*disc;
+      else if(isNum(minus) && minus>=0) final=list-minus;
+      else final=list;
     }
 
-    const perG = (isNum(finalPrice) && isNum(g) && g > 0) ? (finalPrice / g) : NaN;
-
-    return { list, tael, g, finalPrice, perG };
+    const perG = (isNum(final)&&isNum(g)&&g>0) ? final/g : NaN;
+    return {list,tael,g,final,perG};
   }
 
-  function paintRow(i, our, comp){
-    // Names & notes
-    const ourNameIn = ($(`our_name_${i}`).value || "").trim();
-    const ourNoteIn = ($(`our_note_${i}`).value || "").trim();
-    $("nameOur"+i).textContent = clampStr(ourNameIn ? `六福｜${ourNameIn}` : `六福｜我方產品 ${i}`, 48);
-    $("noteOur"+i).textContent = ourNoteIn ? clampStr(ourNoteIn, 70) : "（可填模號/款式/備註）";
+  function paint(i,our,comp){
+    const on=($(`our_name_${i}`).value||"").trim();
+    const onote=($(`our_note_${i}`).value||"").trim();
+    $("nameOur"+i).textContent = clip(on?`${$("ourHeader").value||"本號"}｜${on}`:`${$("ourHeader").value||"本號"}｜產品 ${i}`,48);
+    $("noteOur"+i).textContent = onote?clip(onote):"（可填模號/款式/備註）";
 
-    const compBrandSel = ($(`comp_brand_${i}`).value || "").trim();
-    const compBrandFree= ($(`comp_brand_free_${i}`).value || "").trim();
-    const compBrand = compBrandFree || compBrandSel || "競品";
-    const compNoteIn = ($(`comp_note_${i}`).value || "").trim();
-    $("nameComp"+i).textContent = clampStr(`${compBrand}｜產品 ${i}`, 48);
-    $("noteComp"+i).textContent = compNoteIn ? clampStr(compNoteIn, 70) : "（可填品牌/款式/備註）";
+    const bSel=($(`comp_brand_${i}`).value||"").trim();
+    const bFree=($(`comp_brand_free_${i}`).value||"").trim();
+    const brand=bFree||bSel||"競品";
+    const cnote=($(`comp_note_${i}`).value||"").trim();
+    $("nameComp"+i).textContent = clip(`${brand}｜產品 ${i}`,48);
+    $("noteComp"+i).textContent = cnote?clip(cnote):"（可填品牌/款式/備註）";
 
-    // Weight display
-    const wStr = (o) => {
-      const parts = [];
-      if(isNum(o.g)) parts.push(`${fmtNum(o.g,2)} g`);
-      if(isNum(o.tael) && o.tael>0) parts.push(`${fmtNum(o.tael,3)} 両`);
-      return parts.length ? parts.join(" / ") : "—";
+    const w=(o)=>{
+      const a=[];
+      if(isNum(o.g)) a.push(`${n2(o.g,2)} g`);
+      if(isNum(o.tael)&&o.tael>0) a.push(`${n2(o.tael,3)} 両`);
+      return a.length?a.join(" / "):"—";
     };
-    $("wOur"+i).textContent  = wStr(our);
-    $("wComp"+i).textContent = wStr(comp);
+    $("wOur"+i).textContent=w(our);
+    $("wComp"+i).textContent=w(comp);
 
-    // Prices
-    $("lpOur"+i).textContent  = isNum(our.list) ? fmtMoney(our.list) : "—";
-    $("lpComp"+i).textContent = isNum(comp.list) ? fmtMoney(comp.list) : "—";
-    $("fpOur"+i).textContent  = isNum(our.finalPrice) ? fmtMoney(Math.round(our.finalPrice)) : "—";
-    $("fpComp"+i).textContent = isNum(comp.finalPrice) ? fmtMoney(Math.round(comp.finalPrice)) : "—";
-    $("pgOur"+i).textContent  = isNum(our.perG) ? (fmtMoney1(our.perG) + "/g") : "—";
-    $("pgComp"+i).textContent = isNum(comp.perG) ? (fmtMoney1(comp.perG) + "/g") : "—";
+    $("lpOur"+i).textContent=isNum(our.list)?money(our.list):"—";
+    $("lpComp"+i).textContent=isNum(comp.list)?money(comp.list):"—";
+    $("fpOur"+i).textContent=isNum(our.final)?money(Math.round(our.final)):"—";
+    $("fpComp"+i).textContent=isNum(comp.final)?money(Math.round(comp.final)):"—";
+    $("pgOur"+i).textContent=isNum(our.perG)?(money(our.perG,1)+"/g"):"—";
+    $("pgComp"+i).textContent=isNum(comp.perG)?(money(comp.perG,1)+"/g"):"—";
 
-    // Gaps (六福 - 競品)
-    const gap = (isNum(our.finalPrice) && isNum(comp.finalPrice)) ? (our.finalPrice - comp.finalPrice) : NaN;
-    const gapPct = (isNum(gap) && isNum(comp.finalPrice) && comp.finalPrice>0) ? gap/comp.finalPrice : NaN;
+    const gap = (isNum(our.final)&&isNum(comp.final)) ? our.final-comp.final : NaN;
+    const gapPct = (isNum(gap)&&isNum(comp.final)&&comp.final>0)? gap/comp.final : NaN;
+    const gapPg = (isNum(our.perG)&&isNum(comp.perG)) ? our.perG-comp.perG : NaN;
+    const gapPgPct = (isNum(gapPg)&&isNum(comp.perG)&&comp.perG>0)? gapPg/comp.perG : NaN;
 
-    const gapPg = (isNum(our.perG) && isNum(comp.perG)) ? (our.perG - comp.perG) : NaN;
-    const gapPgPct = (isNum(gapPg) && isNum(comp.perG) && comp.perG>0) ? gapPg/comp.perG : NaN;
-
-    const setVal = (el, val, formatter) => {
-      const node = $(el);
-      node.classList.remove("pos","neg");
-      if(!isNum(val)) { node.textContent = "—"; return; }
-      node.textContent = formatter(val);
-      if(val>0) node.classList.add("pos");
-      if(val<0) node.classList.add("neg");
+    const set=(id,val,fmt)=>{
+      const el=$(id); el.classList.remove("pos","neg");
+      if(!isNum(val)){ el.textContent="—"; return; }
+      el.textContent=fmt(val);
+      if(val>0) el.classList.add("pos");
+      if(val<0) el.classList.add("neg");
     };
 
-    setVal(`gap${i}`, gap, (x)=>fmtMoney(Math.round(x)));
-    $(`gapPct${i}`).textContent = isNum(gapPct) ? `（${fmtPct(gapPct)} 相對競品(約售價)）` : "";
+    set(`gap${i}`, gap, x=>money(Math.round(x)));
+    $(`gapPct${i}`).textContent = isNum(gapPct)?`（${pct(gapPct)} vs 競品約售價）`:"";
+    set(`gapPg${i}`, gapPg, x=>money(x,1)+"/g");
+    $(`gapPgPct${i}`).textContent = isNum(gapPgPct)?`（${pct(gapPgPct)} vs 競品每克）`:"";
 
-    setVal(`gapPg${i}`, gapPg, (x)=>fmtMoney1(x)+"/g");
-    $(`gapPgPct${i}`).textContent = isNum(gapPgPct) ? `（${fmtPct(gapPgPct)} 相對競品(每克)）` : "";
-
-    return { gap, gapPct, gapPg, gapPgPct, compBrand };
+    return {gapPg, brand};
   }
 
-  function updateSummary(results){
-    // Only count rows with valid perG on both sides
-    let valid = 0, higher = 0, maxAbs = { i: null, val: -1, text: "" };
-
-    results.forEach((r, idx)=>{
-      const i = idx+1;
-      const gapPg = r.gapPg;
-      const has = isNum(gapPg);
-      if(has){
-        valid++;
-        if(gapPg > 0) higher++;
-        const abs = Math.abs(gapPg);
-        if(abs > maxAbs.val){
-          maxAbs = { i, val: abs, text: $("gapPg"+i).textContent, brand: r.compBrand };
-        }
+  function summary(rs){
+    let v=0, hi=0, max={i:null,val:-1,txt:"",brand:""};
+    rs.forEach((r,idx)=>{
+      if(isNum(r.gapPg)){
+        v++; if(r.gapPg>0) hi++;
+        const a=Math.abs(r.gapPg);
+        if(a>max.val){ max={i:idx+1,val:a,txt:$("gapPg"+(idx+1)).textContent,brand:r.brand}; }
       }
     });
-
-    let msg = "—（輸入數據後自動生成）";
-    if(valid>0){
-      const lower = valid - higher;
-      msg = `共 ${valid} 對可比較：六福每克約售價較高 ${higher} 對、較低 ${lower} 對。`;
-      if(maxAbs.i){
-        msg += ` 最大每克差距出現在第 ${maxAbs.i} 行（對手：${maxAbs.brand}），差距：${maxAbs.text}。`;
-      }
+    let msg="—";
+    if(v){
+      msg=`共 ${v} 對可比較：本號每克較高 ${hi} 對、較低 ${v-hi} 對。`;
+      if(max.i) msg+=` 最大每克差距：第 ${max.i} 行（${max.brand}），差距 ${max.txt}。`;
     }
-    $("rSummary").innerHTML = `<strong>快速結論：</strong>${msg}`;
+    $("rSummary").innerHTML=`<strong>快速結論：</strong>${msg}`;
   }
 
   function recalc(){
-    setReportHeader();
-    const taelToG = n($("taelToG").value);
-    const results = [1,2,3].map(i=>{
-      const our = computeSide("our", i, taelToG);
-      const comp = computeSide("comp", i, taelToG);
-      const painted = paintRow(i, our, comp);
-      return painted;
+    syncHeader();
+    const taelToG=num($("taelToG").value);
+    const rs=[1,2,3].map(i=>{
+      const our=calcSide("our",i,taelToG);
+      const comp=calcSide("comp",i,taelToG);
+      return paint(i,our,comp);
     });
-    updateSummary(results);
+    summary(rs);
   }
 
-  // Sync header inputs
-  ["reportTitle","reportDate","taelToG","ourHeader","compHeader","footerNote"].forEach(id=>{
-    $(id).addEventListener("input", recalc);
-  });
-
-  // Bind all row inputs to recalc
-  function bindRowInputs(i){
-    const ids = [
-      `our_name_${i}`, `our_note_${i}`, `our_list_${i}`, `our_tael_${i}`, `our_g_${i}`, `our_disc_${i}`, `our_minus_${i}`, `our_final_${i}`,
-      `comp_brand_${i}`, `comp_brand_free_${i}`, `comp_note_${i}`, `comp_list_${i}`, `comp_tael_${i}`, `comp_g_${i}`, `comp_disc_${i}`, `comp_minus_${i}`, `comp_final_${i}`
-    ];
-    ids.forEach(id=> $(id).addEventListener("input", recalc));
+  // bind all inputs
+  ["reportTitle","reportDate","taelToG","ourHeader","compHeader","footerNote"].forEach(id=>$(id).addEventListener("input",recalc));
+  function bindRow(i){
+    [
+      `our_name_${i}`,`our_note_${i}`,`our_list_${i}`,`our_tael_${i}`,`our_g_${i}`,`our_disc_${i}`,`our_minus_${i}`,`our_final_${i}`,
+      `comp_brand_${i}`,`comp_brand_free_${i}`,`comp_note_${i}`,`comp_list_${i}`,`comp_tael_${i}`,`comp_g_${i}`,`comp_disc_${i}`,`comp_minus_${i}`,`comp_final_${i}`
+    ].forEach(id=>$(id).addEventListener("input",recalc));
   }
-  [1,2,3].forEach(bindRowInputs);
+  [1,2,3].forEach(bindRow);
 
-  // Buttons
-  $("btnCalc").addEventListener("click", recalc);
-  $("btnPrint").addEventListener("click", ()=> window.print());
+  $("btnCalc").onclick=recalc;
+  $("btnPrint").onclick=()=>window.print();
 
-  // ===== Export PNG without external libs =====
-  // Approach: wrap report HTML into SVG foreignObject, then draw onto canvas.
+  // PNG export (no external libs; may fail on some browsers)
   async function exportPNG(){
     recalc();
+    const node=$("report").cloneNode(true);
+    node.querySelectorAll("img").forEach(im=>{ if(!im.getAttribute("src")) im.style.display="none"; });
 
-    const report = $("report");
+    const xmlns="http://www.w3.org/1999/xhtml";
+    const wrap=document.createElementNS(xmlns,"div");
+    wrap.setAttribute("xmlns",xmlns);
+    wrap.style.width="297mm"; wrap.style.height="210mm"; wrap.style.background="#fff";
+    wrap.appendChild(node);
+    const xhtml=new XMLSerializer().serializeToString(wrap);
 
-    // Clone report as standalone node to avoid sticky bar etc
-    const clone = report.cloneNode(true);
+    const mmToPx=(()=>{const d=document.createElement("div");d.style.width="1mm";d.style.position="absolute";d.style.left="-1000mm";document.body.appendChild(d);const px=d.getBoundingClientRect().width;d.remove();return px;})();
+    const w=Math.round(297*mmToPx), h=Math.round(210*mmToPx);
 
-    // Ensure images are loaded and have absolute src
-    // (they should already be data URLs from FileReader)
-    const imgs = clone.querySelectorAll("img");
-    imgs.forEach(img=>{
-      if(!img.getAttribute("src")){
-        img.style.display="none";
-      }
-    });
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><foreignObject width="100%" height="100%">${xhtml}</foreignObject></svg>`;
+    const blob=new Blob([svg],{type:"image/svg+xml;charset=utf-8"});
+    const url=URL.createObjectURL(blob);
 
-    // Serialize node into XHTML string
-    const xmlns = "http://www.w3.org/1999/xhtml";
-    const wrap = document.createElementNS(xmlns, "div");
-    wrap.setAttribute("xmlns", xmlns);
-    wrap.style.width = "297mm";
-    wrap.style.height = "210mm";
-    wrap.style.background = "#fff";
-    wrap.appendChild(clone);
-
-    const xhtml = new XMLSerializer().serializeToString(wrap);
-
-    // Compute pixel size: use current screen DPI by measuring 1mm
-    const mmToPx = (() => {
-      const div = document.createElement("div");
-      div.style.width = "1mm";
-      div.style.position = "absolute";
-      div.style.left = "-1000mm";
-      document.body.appendChild(div);
-      const px = div.getBoundingClientRect().width;
-      div.remove();
-      return px;
-    })();
-
-    const widthPx  = Math.round(297 * mmToPx);
-    const heightPx = Math.round(210 * mmToPx);
-
-    const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="${widthPx}" height="${heightPx}">
-        <foreignObject width="100%" height="100%">
-          ${xhtml}
-        </foreignObject>
-      </svg>
-    `;
-    const svgBlob = new Blob([svg], {type: "image/svg+xml;charset=utf-8"});
-    const url = URL.createObjectURL(svgBlob);
-
-    const img = new Image();
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = widthPx;
-      canvas.height = heightPx;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
+    const img=new Image();
+    img.onload=()=>{
+      const c=document.createElement("canvas"); c.width=w; c.height=h;
+      c.getContext("2d").drawImage(img,0,0);
       URL.revokeObjectURL(url);
-
-      canvas.toBlob((blob)=>{
-        if(!blob){ alert("匯出失敗：無法建立PNG。建議用「列印/存成PDF」作後備。"); return; }
-        const a = document.createElement("a");
-        const d = new Date();
-        const pad = (x)=>String(x).padStart(2,"0");
-        const name = `六福_vs_競品_比較圖_約售價_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.png`;
-        a.download = name;
-        a.href = URL.createObjectURL(blob);
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(()=>URL.revokeObjectURL(a.href), 1500);
-      }, "image/png");
+      c.toBlob(b=>{
+        if(!b){alert("PNG 匯出失敗，建議用 列印→存成PDF");return;}
+        const a=document.createElement("a");
+        const d=new Date(), p=x=>String(x).padStart(2,"0");
+        a.download=`本號_vs_競品_比較圖_${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}.png`;
+        a.href=URL.createObjectURL(b);
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+      },"image/png");
     };
-    img.onerror = () => {
-      URL.revokeObjectURL(url);
-      alert("匯出PNG失敗（部分瀏覽器對 foreignObject 支援有限）。你可以改用：列印 → 存成PDF。");
-    };
-    img.src = url;
+    img.onerror=()=>{URL.revokeObjectURL(url);alert("PNG 匯出失敗（瀏覽器限制）。建議用 列印→存成PDF");};
+    img.src=url;
   }
-  $("btnPng").addEventListener("click", exportPNG);
+  $("btnPng").onclick=exportPNG;
 
-  // ===== Init date & seed example for competitor row 1 =====
-  function init(){
-    const d = new Date();
-    const pad = (x)=>String(x).padStart(2,"0");
-    $("reportDate").value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-
-    // Seed competitor example: $21800, 0.258 tael (your earlier case)
-    $("comp_brand_1").value = "周大福";
-    $("comp_list_1").value = 21800;
-    $("comp_tael_1").value = 0.258;
-
+  // init
+  (function init(){
+    const d=new Date(), p=x=>String(x).padStart(2,"0");
+    $("reportDate").value=`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`;
+    // example seed
+    $("comp_brand_1").value="周大福";
+    $("comp_list_1").value=21800;
+    $("comp_tael_1").value=0.258;
     recalc();
-  }
-  init();
+  })();
 </script>
 </body>
 </html>
