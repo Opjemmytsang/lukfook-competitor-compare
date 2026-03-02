@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>六福（本號）vs 競品｜A4 橫向比較圖</title>
+  <title>六福（本號）vs 競品｜橫向比較圖</title>
 
   <style>
     :root{
@@ -220,7 +220,7 @@
 
 <body>
   <div class="topbar">
-    <div class="title"><span class="brand-dot"></span>六福（本號）vs 競品｜A4 橫向比較圖</div>
+    <div class="title"><span class="brand-dot"></span>六福（本號）vs 競品｜橫向比較圖</div>
     <div class="hint">標價 + 金重（両/克）+（折扣/滿減/約售價擇一）→ 每克約售價 + 差距（$ / %）→ 匯出</div>
     <div class="spacer"></div>
     <button id="btnCalc">更新</button>
@@ -233,8 +233,8 @@
     <div class="panel">
 
       <div class="tabs">
-        <div class="tab active" data-tab="show">展示頁 <small>（俾上司睇）</small></div>
-        <div class="tab" data-tab="input">輸入頁 <small>（你填資料/貼相）</small></div>
+        <div class="tab active" data-tab="show">展示頁 <small></small></div>
+        <div class="tab" data-tab="input">輸入頁 <small>（填資料/貼相）</small></div>
       </div>
 
       <!-- INPUT HEADER SETTINGS -->
@@ -291,7 +291,7 @@
                   <div class="h1" id="rTitle">六福（本號）vs 競品｜貨品價格比較</div>
                   <div class="h2">
                     日期：<span id="rDate"></span>
-                    <span class="pill red">A4 橫向</span>
+                    <span class="pill red">橫向</span>
                     <span class="pill">口徑：按 約售價 / g</span>
                   </div>
                 </div>
@@ -792,7 +792,7 @@
         const a = document.createElement("a");
         const d = new Date();
         const pad = (x)=>String(x).padStart(2,"0");
-        a.download = `六福(本號)_vs_競品_A4比較_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.png`;
+        a.download = `六福(本號)_vs_競品_比較_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.png`;
         a.href = URL.createObjectURL(out);
         document.body.appendChild(a);
         a.click();
@@ -831,3 +831,4 @@
 </script>
 </body>
 </html>
+
