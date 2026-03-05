@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>六福（本號）vs 競品｜橫向比較圖</title>
+  <title>六福（本號）vs 同業貨品｜橫向比較圖</title>
 
   <style>
     :root{
       /* Lukfook-ish */
-      --lk-red:#B0121B;      /* 六福紅 */
-      --lk-red-2:#8B1E23;    /* 深紅 */
-      --lk-gold:#C8A55A;     /* 六福金 */
-      --ice:#6DD6FF;         /* 冰鑽冷色點綴 */
-      --ice-2:#E8F7FF;       /* 冰鑽淡底 */
+      --lk-red:#B0121B;
+      --lk-red-2:#8B1E23;
+      --lk-gold:#C8A55A;
+      --ice:#6DD6FF;
+      --ice-2:#E8F7FF;
 
       --txt:#111827;
       --muted:#6b7280;
@@ -151,7 +151,7 @@
 
     .meta{display:flex;flex-direction:column;gap:1.5mm}
     .name{font-weight:900;font-size:10pt;line-height:1.15}
-    .sub{font-size:9pt;color:var(--muted);line-height:1.2}
+    .sub{font-size:9pt;color:var(--muted);line-height:1.2; min-height:11pt}
 
     .kv{
       display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 3mm;font-size:9pt
@@ -207,21 +207,53 @@
     .f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .full{grid-column:1/-1}
 
+    /* History */
+    .hist{
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+    }
+    .hist th,.hist td{
+      border-bottom:1px solid var(--bd);
+      padding:10px 8px;
+      vertical-align:top;
+      white-space:nowrap;
+    }
+    .hist th{
+      text-align:left;
+      background:linear-gradient(180deg, #f9fafb, #f3f4f6);
+      font-weight:900;
+      position:sticky; top:0;
+    }
+    .hist td .subline{white-space:normal;color:var(--muted);font-size:11px;margin-top:4px}
+    .hist-actions{
+      display:flex;gap:8px;flex-wrap:wrap;
+    }
+    .btn-mini{
+      padding:6px 9px;border-radius:10px;font-size:12px;
+    }
+
     /* Print A4 */
-    @page{ size:A4 landscape; margin:0; }
+    @page{ size:A4 landscape; margin:8mm; }
     @media print{
       body{background:#fff}
-      .topbar,.tabs,.wrap .panel > .card,.wrap .panel > #inputView{display:none !important}
-      .report{width:297mm;height:210mm;border:none;border-radius:0;box-shadow:none}
-      .report-inner{padding:10mm}
+      .topbar,.tabs,.wrap .panel > .card,.wrap .panel > #inputView,.wrap .panel > #historyView{display:none !important}
+      .wrap{padding:0}
+      .report-shell{justify-content:stretch}
+      .report{
+        width:100%;
+        height:100%;
+        border:none;border-radius:0;box-shadow:none;
+      }
+      .report-inner{padding:8mm}
     }
   </style>
 </head>
 
 <body>
   <div class="topbar">
-    <div class="title"><span class="brand-dot"></span>六福（本號）vs 競品｜橫向比較圖</div>
-    <div class="hint">標價 + 金重（両/克）+（折扣/滿減/約售價擇一）→ 每克約售價 + 差距（$ / %）→ 匯出</div>
+    <div class="title"><span class="brand-dot"></span>六福（本號）vs 同業貨品｜橫向比較圖</div>
+    <div class="hint" id="topHint">標價 + 金重（両/克）+（折扣/滿減/約售價擇一）→ 每克約售價 + 差距（$ / %）→ 匯出</div>
     <div class="spacer"></div>
     <button id="btnCalc">更新</button>
     <button id="btnPrint">列印 / 存 PDF</button>
@@ -235,14 +267,15 @@
       <div class="tabs">
         <div class="tab active" data-tab="show">展示頁 <small></small></div>
         <div class="tab" data-tab="input">輸入頁 <small>（填資料/貼相）</small></div>
+        <div class="tab" data-tab="history">紀錄 <small>（本機）</small></div>
       </div>
 
       <!-- INPUT HEADER SETTINGS -->
-      <div class="card">
+      <div class="card" id="headerCard">
         <div class="grid4">
           <div>
             <div class="label">報告標題</div>
-            <input id="reportTitle" value="六福（本號）vs 競品｜貨品價格比較" />
+            <input id="reportTitle" value="六福（本號）vs 同業貨品｜貨品價格比較" />
           </div>
           <div>
             <div class="label">日期</div>
@@ -264,8 +297,8 @@
             <input id="ourHeader" value="六福（本號）" />
           </div>
           <div>
-            <div class="label">競品欄頭</div>
-            <input id="compHeader" value="競品（品牌按行顯示）" />
+            <div class="label">同業貨品欄頭</div>
+            <input id="compHeader" value="同業貨品（品牌按行顯示）" />
           </div>
         </div>
 
@@ -288,7 +321,7 @@
             <div class="report-inner">
               <div class="r-header">
                 <div>
-                  <div class="h1" id="rTitle">六福（本號）vs 競品｜貨品價格比較</div>
+                  <div class="h1" id="rTitle">六福（本號）vs 同業貨品｜貨品價格比較</div>
                   <div class="h2">
                     日期：<span id="rDate"></span>
                     <span class="pill red">橫向</span>
@@ -297,14 +330,14 @@
                 </div>
                 <div class="r-right">
                   <div>本號：<span id="rOurHeader" class="pill red">六福（本號）</span></div>
-                  <div>競品：<span id="rCompHeader" class="pill">競品（品牌按行顯示）</span></div>
+                  <div>同業貨品：<span id="rCompHeader" class="pill">同業貨品（品牌按行顯示）</span></div>
                 </div>
               </div>
 
               <div class="table">
                 <div class="thead">
                   <div class="th"><span id="thOur">六福（本號）</span><small>圖片｜金重｜標價｜約售價｜每克</small></div>
-                  <div class="th"><span id="thComp">競品</span><small>圖片｜金重｜標價｜約售價｜每克</small></div>
+                  <div class="th"><span id="thComp">同業貨品</span><small>圖片｜金重｜標價｜約售價｜每克</small></div>
                   <div class="th"><span>差距</span><small>約售價 & 每克</small></div>
                 </div>
                 <div class="tbody" id="reportRows"></div>
@@ -322,9 +355,38 @@
       <!-- INPUT VIEW -->
       <div class="view" id="inputView">
         <div class="card">
-          <div style="font-weight:900;">輸入區（3 行對比｜每行左六福（本號）、右競品可不同品牌）</div>
+          <div style="font-weight:900;">輸入區（3 行對比｜每行左六福（本號）、右同業貨品可不同品牌）</div>
           <div class="hint">金重：両 或 克 二擇一；價錢：標價必填；折扣三選一（折扣 / 滿減 / 直接約售價）。</div>
           <div id="inputRows"></div>
+        </div>
+      </div>
+
+      <!-- HISTORY VIEW -->
+      <div class="view" id="historyView">
+        <div class="card">
+          <div class="line-head">
+            <b>比較紀錄（本機）</b>
+            <div class="hist-actions">
+              <button class="btn-mini" id="btnSave">儲存本次比較</button>
+              <button class="btn-mini" id="btnExportCSV">匯出 CSV</button>
+              <button class="btn-mini ghost" id="btnClearHistory">清空紀錄</button>
+            </div>
+          </div>
+          <div class="hint">會在你按「更新 / 列印 / 匯出 PNG」時自動儲存一筆（不含圖片）。</div>
+
+          <div style="overflow:auto;max-height:60vh;border:1px solid var(--bd);border-radius:12px;">
+            <table class="hist">
+              <thead>
+                <tr>
+                  <th>時間</th>
+                  <th>標題 / 日期</th>
+                  <th>快速結論</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -336,6 +398,10 @@
 
   const ROWS = 3;
   const BRANDS = ["周大福","周生生","老鋪黃金","謝瑞麟","Chow Tai Fook","Lukfook","其他"];
+
+  const HISTORY_KEY = "lk_compare_history_v1";
+  const HISTORY_MAX = 50;
+  let lastCompare = []; // keep latest computed gaps/stats
 
   const isNum = (x) => Number.isFinite(x);
   const n = (v) => {
@@ -379,7 +445,7 @@
             <div class="imgbox"><img id="imgOur${i}" alt="" style="display:none"/></div>
             <div class="meta">
               <div class="name" id="nameOur${i}">六福（本號）｜產品 ${i}</div>
-              <div class="sub muted" id="noteOur${i}">（可填模號/款式/備註）</div>
+              <div class="sub muted" id="noteOur${i}"></div>
               <div class="kv">
                 <div class="k">金重(克/両)</div><div class="v" id="wOur${i}">—</div>
                 <div class="k">標價</div><div class="v" id="lpOur${i}">—</div>
@@ -394,8 +460,8 @@
           <div class="prod">
             <div class="imgbox"><img id="imgComp${i}" alt="" style="display:none"/></div>
             <div class="meta">
-              <div class="name" id="nameComp${i}">競品｜產品 ${i}</div>
-              <div class="sub muted" id="noteComp${i}">（可填品牌/款式/備註）</div>
+              <div class="name" id="nameComp${i}">同業貨品｜產品 ${i}</div>
+              <div class="sub muted" id="noteComp${i}"></div>
               <div class="kv">
                 <div class="k">金重(克/両)</div><div class="v" id="wComp${i}">—</div>
                 <div class="k">標價</div><div class="v" id="lpComp${i}">—</div>
@@ -409,12 +475,12 @@
         <div class="cell">
           <div class="diff">
             <div class="box">
-              <div class="t">約售價差距（六福（本號）-競品）</div>
+              <div class="t">約售價差距（六福（本號）-同業貨品）</div>
               <div class="val" id="gap${i}">—</div>
               <div class="t muted" id="gapPct${i}"></div>
             </div>
             <div class="box">
-              <div class="t">每克差距（六福（本號）-競品）</div>
+              <div class="t">每克差距（六福（本號）-同業貨品）</div>
               <div class="val" id="gapPg${i}">—</div>
               <div class="t muted" id="gapPgPct${i}"></div>
             </div>
@@ -429,7 +495,7 @@
       <div class="line">
         <div class="line-head">
           <b>第 ${i} 行</b>
-          <div class="hint">建議：先填右邊競品，再配返左邊本號相若款</div>
+          <div class="hint">建議：先填右邊同業貨品，再配返左邊本號相若款</div>
         </div>
 
         <div class="two">
@@ -480,10 +546,10 @@
           </div>
 
           <div class="boxdash">
-            <h4>競品</h4>
+            <h4>同業貨品</h4>
             <div class="f2">
               <div>
-                <div class="label">競品品牌（下拉）</div>
+                <div class="label">同業貨品品牌（下拉）</div>
                 ${brandSelect(`comp_brand_${i}`)}
               </div>
               <div>
@@ -546,10 +612,10 @@
   }
 
   function setHeaders(){
-    const title = $("reportTitle").value || "六福（本號）vs 競品｜貨品價格比較";
+    const title = $("reportTitle").value || "六福（本號）vs 同業貨品｜貨品價格比較";
     const date  = $("reportDate").value || "";
     const ourH  = $("ourHeader").value || "六福（本號）";
-    const compH = $("compHeader").value || "競品（品牌按行顯示）";
+    const compH = $("compHeader").value || "同業貨品（品牌按行顯示）";
     const note  = $("footerNote").value || "";
 
     $("rTitle").textContent = title;
@@ -592,14 +658,14 @@
     const ourNote = clamp($(`our_note_${i}`).value, 70);
     const ourHeader = $("ourHeader").value || "六福（本號）";
     $(`nameOur${i}`).textContent = ourName ? `${ourHeader}｜${ourName}` : `${ourHeader}｜產品 ${i}`;
-    $(`noteOur${i}`).textContent = ourNote || "（可填模號/款式/備註）";
+    $(`noteOur${i}`).textContent = ourNote || ""; // 展示頁不放「建議文字」
 
     const sel = ($(`comp_brand_${i}`).value || "").trim();
     const free= ($(`comp_brand_free_${i}`).value || "").trim();
-    const brand = free || sel || "競品";
+    const brand = free || sel || "同業貨品";
     const compNote = clamp($(`comp_note_${i}`).value, 70);
     $(`nameComp${i}`).textContent = `${brand}｜產品 ${i}`;
-    $(`noteComp${i}`).textContent = compNote || "（可填品牌/款式/備註）";
+    $(`noteComp${i}`).textContent = compNote || ""; // 展示頁不放「建議文字」
 
     const wStr = (o) => {
       const parts = [];
@@ -632,25 +698,32 @@
     };
 
     setVal(`gap${i}`, gap, (x)=>fmtMoney0(Math.round(x)));
-    $(`gapPct${i}`).textContent = isNum(gapPct) ? `（${fmtPct(gapPct)} 相對競品(約售價)）` : "";
+    $(`gapPct${i}`).textContent = isNum(gapPct) ? `（${fmtPct(gapPct)} 相對同業貨品(約售價)）` : "";
 
     setVal(`gapPg${i}`, gapPg, (x)=>fmtMoney1(x)+"/g");
-    $(`gapPgPct${i}`).textContent = isNum(gapPgPct) ? `（${fmtPct(gapPgPct)} 相對競品(每克)）` : "";
+    $(`gapPgPct${i}`).textContent = isNum(gapPgPct) ? `（${fmtPct(gapPgPct)} 相對同業貨品(每克)）` : "";
 
-    return { gapPg, brand };
+    return {
+      _i: i,
+      brand,
+      gapPrice: gap,
+      gapPricePct: gapPct,
+      gapPg,
+      gapPgPct
+    };
   }
 
   function updateSummary(rows){
     const usable = rows.filter(r => isNum(r.gapPg));
     if(!usable.length){
       $("rSummary").innerHTML = `<strong>快速結論：</strong>—`;
-      return;
+      return { usable:0, higher:0, lower:0, max:null };
     }
     let higher = usable.filter(r=>r.gapPg>0).length;
     let lower  = usable.length - higher;
 
     let max = { idx:null, abs:-1, txt:"", brand:"" };
-    usable.forEach((r, k)=>{
+    usable.forEach((r)=>{
       const abs = Math.abs(r.gapPg);
       if(abs > max.abs){
         max.abs = abs;
@@ -663,6 +736,8 @@
     let msg = `共 ${usable.length} 對可比較：六福（本號）每克約售價較高 ${higher} 對、較低 ${lower} 對。`;
     if(max.idx) msg += ` 最大每克差距：第 ${max.idx} 行（${max.brand}），差距：${max.txt}。`;
     $("rSummary").innerHTML = `<strong>快速結論：</strong>${msg}`;
+
+    return { usable: usable.length, higher, lower, max };
   }
 
   function recalc(){
@@ -672,11 +747,11 @@
     for(let i=1;i<=ROWS;i++){
       const our = computeSide("our", i, taelToG);
       const comp= computeSide("comp", i, taelToG);
-      const r = paintRow(i, our, comp);
-      r._i = i;
-      out.push(r);
+      out.push(paintRow(i, our, comp));
     }
     updateSummary(out);
+    lastCompare = out;
+    return out;
   }
 
   function bindInputs(){
@@ -718,10 +793,10 @@
       });
     }
 
-    // header 設回基本值（可按你需要改）
-    $("reportTitle").value = "六福（本號）vs 競品｜貨品價格比較";
+    // header 設回基本值
+    $("reportTitle").value = "六福（本號）vs 同業貨品｜貨品價格比較";
     $("ourHeader").value = "六福（本號）";
-    $("compHeader").value = "競品（品牌按行顯示）";
+    $("compHeader").value = "同業貨品（品牌按行顯示）";
     $("footerNote").value = "＊主要用「每克約售價」作比較口徑；如有贈品/會員價，建議直接輸入約售價。";
     setToday();
 
@@ -735,11 +810,228 @@
     });
     $("showView").classList.toggle("active", name==="show");
     $("inputView").classList.toggle("active", name==="input");
+    $("historyView").classList.toggle("active", name==="history");
+
+    // 展示頁不顯示頂部「提示」文字
+    $("topHint").style.display = (name==="show") ? "none" : "block";
+  }
+
+  // -------------------------
+  // History (localStorage)
+  // -------------------------
+  function safeParse(json){
+    try{ return JSON.parse(json); }catch(e){ return null; }
+  }
+  function loadHistory(){
+    const raw = localStorage.getItem(HISTORY_KEY);
+    const arr = safeParse(raw);
+    return Array.isArray(arr) ? arr : [];
+  }
+  function saveHistory(arr){
+    try{
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
+      return true;
+    }catch(e){
+      alert("儲存紀錄失敗：可能瀏覽器儲存空間不足（localStorage）。");
+      return false;
+    }
+  }
+  function fmtTime(ts){
+    const d = new Date(ts);
+    if(Number.isNaN(d.getTime())) return ts;
+    return d.toLocaleString("zh-HK", { hour12:false });
+  }
+
+  function getState(){
+    const state = {
+      reportTitle: $("reportTitle").value || "",
+      reportDate: $("reportDate").value || "",
+      taelToG: $("taelToG").value || "",
+      ourHeader: $("ourHeader").value || "",
+      compHeader: $("compHeader").value || "",
+      footerNote: $("footerNote").value || "",
+      rows: []
+    };
+    for(let i=1;i<=ROWS;i++){
+      state.rows.push({
+        our_name: $(`our_name_${i}`).value || "",
+        our_note: $(`our_note_${i}`).value || "",
+        our_list: $(`our_list_${i}`).value || "",
+        our_tael: $(`our_tael_${i}`).value || "",
+        our_g: $(`our_g_${i}`).value || "",
+        our_disc: $(`our_disc_${i}`).value || "",
+        our_minus: $(`our_minus_${i}`).value || "",
+        our_final: $(`our_final_${i}`).value || "",
+
+        comp_brand: $(`comp_brand_${i}`).value || "",
+        comp_brand_free: $(`comp_brand_free_${i}`).value || "",
+        comp_note: $(`comp_note_${i}`).value || "",
+        comp_list: $(`comp_list_${i}`).value || "",
+        comp_tael: $(`comp_tael_${i}`).value || "",
+        comp_g: $(`comp_g_${i}`).value || "",
+        comp_disc: $(`comp_disc_${i}`).value || "",
+        comp_minus: $(`comp_minus_${i}`).value || "",
+        comp_final: $(`comp_final_${i}`).value || ""
+      });
+    }
+    return state;
+  }
+
+  function applyState(state){
+    if(!state) return;
+    $("reportTitle").value = state.reportTitle || "";
+    $("reportDate").value = state.reportDate || "";
+    $("taelToG").value = state.taelToG || "37.429";
+    $("ourHeader").value = state.ourHeader || "六福（本號）";
+    $("compHeader").value = state.compHeader || "同業貨品（品牌按行顯示）";
+    $("footerNote").value = state.footerNote || "";
+
+    (state.rows || []).forEach((r, idx)=>{
+      const i = idx+1;
+      if(i>ROWS) return;
+      $(`our_name_${i}`).value = r.our_name || "";
+      $(`our_note_${i}`).value = r.our_note || "";
+      $(`our_list_${i}`).value = r.our_list || "";
+      $(`our_tael_${i}`).value = r.our_tael || "";
+      $(`our_g_${i}`).value = r.our_g || "";
+      $(`our_disc_${i}`).value = r.our_disc || "";
+      $(`our_minus_${i}`).value = r.our_minus || "";
+      $(`our_final_${i}`).value = r.our_final || "";
+
+      $(`comp_brand_${i}`).value = r.comp_brand || "";
+      $(`comp_brand_free_${i}`).value = r.comp_brand_free || "";
+      $(`comp_note_${i}`).value = r.comp_note || "";
+      $(`comp_list_${i}`).value = r.comp_list || "";
+      $(`comp_tael_${i}`).value = r.comp_tael || "";
+      $(`comp_g_${i}`).value = r.comp_g || "";
+      $(`comp_disc_${i}`).value = r.comp_disc || "";
+      $(`comp_minus_${i}`).value = r.comp_minus || "";
+      $(`comp_final_${i}`).value = r.comp_final || "";
+    });
+
+    // 圖片檔案無法由本機紀錄自動還原（安全限制），保留現狀
+    recalc();
+  }
+
+  function buildStatsFromCompare(compareArr){
+    const usable = (compareArr||[]).filter(r => isNum(r.gapPg));
+    const higher = usable.filter(r=>r.gapPg>0).length;
+    const lower = usable.length - higher;
+    let max = null;
+    usable.forEach(r=>{
+      const abs = Math.abs(r.gapPg);
+      if(!max || abs > max.abs){
+        max = { abs, idx:r._i, brand:r.brand, gapPg:r.gapPg };
+      }
+    });
+    return { usable: usable.length, higher, lower, max };
+  }
+
+  function saveSnapshot(reason="manual"){
+    const compareArr = recalc(); // ensure latest
+    const state = getState();
+    const stats = buildStatsFromCompare(compareArr);
+    const entry = {
+      id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + "_" + Math.random().toString(16).slice(2),
+      ts: new Date().toISOString(),
+      reason,
+      state,
+      stats,
+      summaryText: $("rSummary").innerText || ""
+    };
+
+    const hist = loadHistory();
+    hist.unshift(entry);
+    if(hist.length > HISTORY_MAX) hist.length = HISTORY_MAX;
+    if(saveHistory(hist)) renderHistory();
+  }
+
+  function deleteEntry(id){
+    const hist = loadHistory().filter(x => x.id !== id);
+    saveHistory(hist);
+    renderHistory();
+  }
+
+  function renderHistory(){
+    const hist = loadHistory();
+    const body = $("historyBody");
+    if(!hist.length){
+      body.innerHTML = `<tr><td colspan="4" class="muted">暫無紀錄（按「更新 / 列印 / 匯出 PNG」會自動保存）</td></tr>`;
+      return;
+    }
+    body.innerHTML = hist.map(e=>{
+      const title = (e.state && e.state.reportTitle) ? e.state.reportTitle : "—";
+      const date  = (e.state && e.state.reportDate) ? e.state.reportDate : "";
+      const s = e.stats || { usable:0, higher:0, lower:0, max:null };
+      const maxTxt = s.max ? `最大每克差距：第 ${s.max.idx} 行（${s.max.brand}）` : "—";
+      const quick = `${s.usable} 對可比｜高 ${s.higher}｜低 ${s.lower}`;
+      return `
+        <tr>
+          <td>${fmtTime(e.ts)}</td>
+          <td>
+            <div><b>${clamp(title, 60) || "—"}</b></div>
+            <div class="subline">日期：${date || "—"}｜${quick}</div>
+          </td>
+          <td>
+            <div>${clamp((e.summaryText||"").replace("快速結論：","").trim(), 120) || "—"}</div>
+            <div class="subline">${maxTxt}</div>
+          </td>
+          <td>
+            <div class="hist-actions">
+              <button class="btn-mini" data-act="load" data-id="${e.id}">載入</button>
+              <button class="btn-mini ghost" data-act="del" data-id="${e.id}">刪除</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  function exportHistoryCSV(){
+    const hist = loadHistory();
+    if(!hist.length){ alert("暫無紀錄可匯出"); return; }
+    const rows = [];
+    rows.push([
+      "ts","title","date","usable_pairs","higher_pairs","lower_pairs","max_gap_row","max_gap_brand","summary"
+    ].join(","));
+    hist.forEach(e=>{
+      const s = e.stats || {};
+      const title = (e.state && e.state.reportTitle) ? e.state.reportTitle : "";
+      const date  = (e.state && e.state.reportDate) ? e.state.reportDate : "";
+      const maxRow = s.max ? s.max.idx : "";
+      const maxBrand = s.max ? s.max.brand : "";
+      const summary = (e.summaryText||"").replace(/\s+/g," ").trim();
+      const esc = (v)=> `"${String(v||"").replaceAll('"','""')}"`;
+      rows.push([
+        esc(e.ts),
+        esc(title),
+        esc(date),
+        esc(s.usable ?? ""),
+        esc(s.higher ?? ""),
+        esc(s.lower ?? ""),
+        esc(maxRow),
+        esc(maxBrand),
+        esc(summary)
+      ].join(","));
+    });
+
+    const blob = new Blob([rows.join("\n")], {type:"text/csv;charset=utf-8"});
+    const a = document.createElement("a");
+    const d = new Date();
+    const pad = (x)=>String(x).padStart(2,"0");
+    a.download = `六福(本號)_vs_同業貨品_比較紀錄_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}.csv`;
+    a.href = URL.createObjectURL(blob);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 1500);
   }
 
   // Export PNG (no external libs)
   async function exportPNG(){
+    saveSnapshot("export_png"); // auto record
     recalc();
+
     const report = $("report");
     const clone = report.cloneNode(true);
 
@@ -792,7 +1084,7 @@
         const a = document.createElement("a");
         const d = new Date();
         const pad = (x)=>String(x).padStart(2,"0");
-        a.download = `六福(本號)_vs_競品_比較_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.png`;
+        a.download = `六福(本號)_vs_同業貨品_比較_${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}.png`;
         a.href = URL.createObjectURL(out);
         document.body.appendChild(a);
         a.click();
@@ -816,19 +1108,57 @@
     setToday();
     bindInputs();
     recalc();
+    renderHistory();
 
     // tab events
     document.querySelectorAll(".tab").forEach(t=>{
       t.addEventListener("click", ()=>setTab(t.dataset.tab));
     });
 
-    $("btnCalc").addEventListener("click", recalc);
-    $("btnPrint").addEventListener("click", ()=>window.print());
+    $("btnCalc").addEventListener("click", ()=>{
+      saveSnapshot("update");
+      recalc();
+    });
+
+    $("btnPrint").addEventListener("click", ()=>{
+      saveSnapshot("print");
+      window.print();
+    });
+
     $("btnPng").addEventListener("click", exportPNG);
+
     $("btnClear").addEventListener("click", clearAll);
+
+    // history buttons
+    $("btnSave").addEventListener("click", ()=>saveSnapshot("manual"));
+    $("btnExportCSV").addEventListener("click", exportHistoryCSV);
+    $("btnClearHistory").addEventListener("click", ()=>{
+      if(confirm("確定清空所有比較紀錄？（只影響本機）")){
+        localStorage.removeItem(HISTORY_KEY);
+        renderHistory();
+      }
+    });
+
+    $("historyBody").addEventListener("click", (e)=>{
+      const btn = e.target.closest("button");
+      if(!btn) return;
+      const act = btn.dataset.act;
+      const id  = btn.dataset.id;
+      const hist = loadHistory();
+      const entry = hist.find(x=>x.id===id);
+      if(act==="load" && entry){
+        applyState(entry.state);
+        setTab("input");
+      }
+      if(act==="del" && id){
+        deleteEntry(id);
+      }
+    });
+
+    // default tab behaviour
+    setTab("show");
   }
   init();
 </script>
 </body>
 </html>
-
